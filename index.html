@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dynamic Web App</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="content">
+        <h1>Dynamic Web App</h1>
+        <button id="toggleButton">Toggle Visibility</button>
+        <div id="toggleContent">
+            <p>This content can be toggled.</p>
+        </div>
+        <form id="myForm">
+            <label for="username">Username:</label>
+            <input type="text" id="username" required>
+            <span id="usernameError" class="hidden">Username is required</span>
+            <br>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <script>
+        // Cache elements using selectElementById and querySelector
+        var content = document.getElementById('content');
+        var toggleButton = document.querySelector('#toggleButton');
+        var toggleContent = document.querySelector('#toggleContent');
+        var form = document.getElementById('myForm');
+        var username = document.getElementById('username');
+        var usernameError = document.querySelector('#usernameError');
+
+        // Use parent-child-sibling relationship
+        console.log(content.firstChild); // First child of content
+        console.log(toggleButton.nextElementSibling); // Sibling of toggleButton
+
+        // Iterate over a collection of elements
+        var inputs = document.querySelectorAll('input');
+        inputs.forEach(function(input) {
+            input.addEventListener('focus', function() {
+                input.style.border = '2px solid blue';
+            });
+        });
+
+        // Create a new element and add it to the DOM
+        var newParagraph = document.createElement('p');
+        newParagraph.textContent = 'Added a new paragraph to the DOM.';
+        content.appendChild(newParagraph);
+
+        // Modify HTML content and style in response to user interaction
+        toggleButton.addEventListener('click', function() {
+            toggleContent.classList.toggle('hidden');
+        });
+
+        // Modify an attribute in response to user interaction
+        username.addEventListener('change', function() {
+            username.setAttribute('value', username.value);
+        });
+
+        // Register event listeners and create event handler functions
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+            if (username.value === '') {
+                usernameError.classList.remove('hidden');
+            } else {
+                usernameError.classList.add('hidden');
+                alert('Form submitted with username: ' + username.value);
+            }
+        });
+
+        // Use BOM properties or methods
+        window.addEventListener('resize', function() {
+            console.log('Window resized to ' + window.innerWidth + 'x' + window.innerHeight);
+        });
+    </script>
+</body>
+</html>
